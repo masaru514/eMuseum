@@ -50,6 +50,8 @@ export default function Home(props:variables) {
         <ul style={{listStyleType: "none", display: 'flex',width: '100%',flexWrap:'wrap'}}>
           <Arts ward={search}/>
         </ul>
+
+        <div><button>もっと見る</button></div>
       </main>
 
       <footer>
