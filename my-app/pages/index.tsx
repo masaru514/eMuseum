@@ -1,7 +1,15 @@
 import Head from 'next/head'
 import { useState,useEffect } from 'react'
 import Arts from './../Component/arts'
+import { dom } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'; //fontawesomeのコアファイル
+import { fab } from '@fortawesome/free-brands-svg-icons'; //fontawesomeのbrandアイコンのインポート
+import { fas } from '@fortawesome/free-solid-svg-icons'; //fontawesomeのsolidアイコンのインポート
+import { far } from '@fortawesome/free-regular-svg-icons'; //fontawesomeのregularアイコンのインポート
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
+library.add(fab, fas, far); //他のコンポーネントから簡単に呼び出せるようにするための登録処理？
 
 //Promise re失敗した場合
 function failedCallback(result) {
@@ -16,9 +24,9 @@ interface variables{
 
 
 export default function Home(props:variables) {
-
   //検索キーワードの状態を保存
-  const [search,setSearch] = useState("sunflower")
+  const [search,setSearch] = useState("peter")
+  const [stateNum,setStateNum] = useState(20)
   console.log(search)
 
   //検索キーワードを子コンポーネントに送る
@@ -27,6 +35,10 @@ export default function Home(props:variables) {
       setSearch(e.target.value)
     }
   }
+
+  const incrementNum = () => {
+    setStateNum(stateNum + 20)
+  } 
 
   return (
     <div className="container">
@@ -42,16 +54,17 @@ export default function Home(props:variables) {
         <p>
           今はメトロポリタン美術館の一部のみ表示
         </p>
-       
+
         <p>{search}</p>
         <input type="text" onKeyPress={handleChange} placeholder="検索したいキーワードを入力"/>
         
 
         <ul style={{listStyleType: "none", display: 'flex',width: '100%',flexWrap:'wrap'}}>
-          <Arts ward={search}/>
+          <Arts ward={search} n={stateNum} />
         </ul>
 
-        <div><button>もっと見る</button></div>
+
+        <div><button onClick={incrementNum}>もっと見る</button></div>
       </main>
 
       <footer>
