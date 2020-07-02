@@ -1,15 +1,8 @@
 import Head from 'next/head'
 import { useState,useEffect } from 'react'
 import Arts from './../Component/arts'
-import { dom } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { library } from '@fortawesome/fontawesome-svg-core'; //fontawesomeのコアファイル
-import { fab } from '@fortawesome/free-brands-svg-icons'; //fontawesomeのbrandアイコンのインポート
-import { fas } from '@fortawesome/free-solid-svg-icons'; //fontawesomeのsolidアイコンのインポート
-import { far } from '@fortawesome/free-regular-svg-icons'; //fontawesomeのregularアイコンのインポート
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
-library.add(fab, fas, far); //他のコンポーネントから簡単に呼び出せるようにするための登録処理？
+
 
 //Promise re失敗した場合
 function failedCallback(result) {
@@ -21,12 +14,11 @@ interface variables{
   value: string
 }
 
-
-
 export default function Home(props:variables) {
   //検索キーワードの状態を保存
-  const [search,setSearch] = useState("peter")
+  const [search,setSearch] = useState("vermeer")
   const [stateNum,setStateNum] = useState(20)
+
   console.log(search)
 
   //検索キーワードを子コンポーネントに送る
@@ -38,7 +30,7 @@ export default function Home(props:variables) {
 
   const incrementNum = () => {
     setStateNum(stateNum + 20)
-  } 
+  }
 
   return (
     <div className="container">
