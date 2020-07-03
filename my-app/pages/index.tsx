@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState,useEffect } from 'react'
+import { useState } from 'react'
 import Arts from './../Component/arts'
 
 
@@ -16,10 +16,10 @@ interface variables{
 
 export default function Home(props:variables) {
   //検索キーワードの状態を保存
-  const [search,setSearch] = useState("vermeer")
+  const [search,setSearch] = useState("Peter paul Rubens")
   const [stateNum,setStateNum] = useState(20)
 
-  console.log(search)
+  // console.log(search)
 
   //検索キーワードを子コンポーネントに送る
   const handleChange = (e) => {
@@ -35,26 +35,20 @@ export default function Home(props:variables) {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Metro</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <h1 className="title">
-          世界の美術作品を検索(仮)
+          メトロポリタン美術館
         </h1>
-        <p>
-          今はメトロポリタン美術館の一部のみ表示
-        </p>
 
-        <p>{search}</p>
+        <h3>Vermeer(フェルメール)や<br />Peter paul rubens(ピーテル・パウル・ルーベンス)<br />などの有名作品があります。<br/>英語で検索してください。</h3>
+        <p>検索ワード：{search}</p>
         <input type="text" onKeyPress={handleChange} placeholder="検索したいキーワードを入力"/>
-        
 
-        <ul style={{listStyleType: "none", display: 'flex',width: '100%',flexWrap:'wrap'}}>
-          <Arts ward={search} n={stateNum} />
-        </ul>
-
+        <Arts ward={search} n={stateNum} />
 
         <div><button onClick={incrementNum}>もっと見る</button></div>
       </main>

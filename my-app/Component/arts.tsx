@@ -8,12 +8,16 @@ export default function Arts(props) {
     isLoading: true,
     isCount: true
   })
-  console.log(check.isLoading)
+  // console.log(check.isLoading)
 
   //loading
   const Loading = () =>{
     //loadのstateがtrueであれば読み込み中
-      return <ReactLoading type="spinningBubbles" color="#333" height={100} width={100} />
+      return (
+        <div style={{margin: '0 auto 40px'}}>
+          <ReactLoading type="spinningBubbles" color="#333" height={100} width={100} />
+        </div>
+      )
     //loadのstateがfalseであれば読み込み完了
   }
   const NoImages = () => {
@@ -26,7 +30,7 @@ export default function Arts(props) {
     const RequestforAPI = "https://collectionapi.metmuseum.org/public/collection/v1/search?artistOrCulture=true&q=" + props.ward
     const getMetAPI = await fetch(RequestforAPI)
     const arts = await getMetAPI.json();
-    console.log(arts)
+    // console.log(arts)
 
     if( check.isLoading == false){
       setCheck({ isLoading: true,isCount: true})
@@ -51,10 +55,9 @@ export default function Arts(props) {
     if(arts.total == 0){
       setCheck({isLoading: false, isCount: false})
       setDisplay([])
-      console.log(display)
+      // console.log(display)
     }
-
-    console.log(arts.total)
+    // console.log(arts.total)
 
     //promise 成功処理
     function successCallback(result) {
@@ -75,10 +78,10 @@ export default function Arts(props) {
   function MetroComponent() {
     const lists = display.map((item,i) => {
       return(
-        <li key={i}>
-          <img src={item.getArtInfo2} alt={item.getArtInfo4}/>
-          <p>{item.getArtInfo4}</p>
-          <p>{item.getArtInfo3}</p>
+        <li key={i} style={{margin: 10}}>
+          <img style={{width: 300,height: 400,objectFit: 'cover'}} src={item.getArtInfo2} alt={item.getArtInfo4} />
+          <p style={{width: 300,textAlign: 'center',wordBreak: 'break-word'}}>{item.getArtInfo4}</p>
+          <p style={{textAlign: 'center'}}>{item.getArtInfo3}</p>
         </li>
       )
     })
@@ -93,7 +96,9 @@ export default function Arts(props) {
 
   return(
     <>
-      <MetroComponent />
+      <ul style={{listStyleType: "none", display: 'flex',width: '100%',maxWidth: 1000,flexWrap:'wrap',justifyContent: 'center'}}>
+        <MetroComponent />
+      </ul>
       {check.isLoading ? <Loading /> : null}
       {check.isCount ?  null : <NoImages />}
     </>
