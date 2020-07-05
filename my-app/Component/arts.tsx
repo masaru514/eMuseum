@@ -1,7 +1,17 @@
 import React,{ useState,useEffect } from 'react'
 import ReactLoading from 'react-loading';
 
-export default function Arts(props) {
+// export async function getStaticProps() {
+//   const RequestforAPI = "https://collectionapi.metmuseum.org/public/collection/v1/search?artistOrCulture=true&q=" + 'vermeer'
+//   const getMetAPI = await fetch(RequestforAPI)
+//   const arts = await getMetAPI.json();
+//   const b = arts.total
+//   console.log(b)
+
+//   return ({props: {b}})
+// }
+
+export default function Arts(props,{b}) {
 
   const [display,setDisplay] = useState([])
   const [check,setCheck] = useState({
@@ -9,7 +19,7 @@ export default function Arts(props) {
     isCount: true
   })
   // console.log(check.isLoading)
-
+  
   //loading
   const Loading = () =>{
     //loadのstateがtrueであれば読み込み中
@@ -20,6 +30,7 @@ export default function Arts(props) {
       )
     //loadのstateがfalseであれば読み込み完了
   }
+
   const NoImages = () => {
     return <p>検索キーワードは見つかりませんでした。<br />人物名を入れてみてください。<br />例：gogh</p>
   }
@@ -74,6 +85,8 @@ export default function Arts(props) {
       )
     }
   }
+
+  //RまでにgetMetAPIを取得しておきたい。
 
   function MetroComponent() {
     const lists = display.map((item,i) => {

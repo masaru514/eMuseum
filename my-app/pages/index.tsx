@@ -11,7 +11,10 @@ function failedCallback(result) {
 }
 
 interface variables{
-  value: string
+  value: string,
+  search: string,
+  stateNum: number,
+
 }
 
 export default function Home(props:variables) {
@@ -29,7 +32,7 @@ export default function Home(props:variables) {
   }
 
   const incrementNum = () => {
-    setStateNum(stateNum + 20)
+    setStateNum(stateNum + 18)
   }
 
   return (
@@ -46,7 +49,7 @@ export default function Home(props:variables) {
 
         <h3>Vermeer(フェルメール)や<br />Peter paul rubens(ピーテル・パウル・ルーベンス)<br />などの有名作品があります。<br/>英語で検索してください。</h3>
         <p>検索ワード：{search}</p>
-        <input type="text" onKeyPress={handleChange} placeholder="検索したいキーワードを入力"/>
+        <input type="text" onKeyPress={handleChange} placeholder="検索キーワードを入力"/>
 
         <Arts ward={search} n={stateNum} />
 
