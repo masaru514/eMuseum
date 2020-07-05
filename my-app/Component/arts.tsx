@@ -109,7 +109,7 @@ export default function Arts(props,{b}) {
 
   return(
     <>
-      <ul style={{listStyleType: "none", display: 'flex',width: '100%',maxWidth: 1000,flexWrap:'wrap',justifyContent: 'center'}}>
+      <ul style={{listStyleType: "none", display: 'flex',width: '100%',maxWidth: 1000,flexWrap:'wrap',justifyContent: 'center',padding: 0}}>
         <MetroComponent />
       </ul>
       {check.isLoading ? <Loading /> : null}
