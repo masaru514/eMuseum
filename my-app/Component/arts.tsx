@@ -1,15 +1,7 @@
-import React,{ useState,useEffect } from 'react'
+import React,{ useState,useEffect, } from 'react'
 import ReactLoading from 'react-loading';
+import Link from 'next/link'
 
-// export async function getStaticProps() {
-//   const RequestforAPI = "https://collectionapi.metmuseum.org/public/collection/v1/search?artistOrCulture=true&q=" + 'vermeer'
-//   const getMetAPI = await fetch(RequestforAPI)
-//   const arts = await getMetAPI.json();
-//   const b = arts.total
-//   console.log(b)
-
-//   return ({props: {b}})
-// }
 
 export default function Arts(props,{b}) {
 
@@ -19,6 +11,7 @@ export default function Arts(props,{b}) {
     isCount: true
   })
   // console.log(check.isLoading)
+
   
   //loading
   const Loading = () =>{

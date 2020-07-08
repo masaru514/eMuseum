@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import Arts from './../Component/arts'
-
-
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 //Promise re失敗した場合
 function failedCallback(result) {
@@ -35,6 +35,13 @@ export default function Home(props:variables) {
     setStateNum(stateNum + 18)
   }
 
+  const Post = () => {
+    const router = useRouter()
+    const { pid } = router.query
+  
+    return <p>Post: {pid}</p>
+  }
+
   return (
     <div className="container">
       <Head>
@@ -48,6 +55,11 @@ export default function Home(props:variables) {
         </h1>
 
         <h3 style={{padding:'0 20'}}>Vermeer(フェルメール)や<br />Peter paul rubens(ピーテル・パウル・ルーベンス)<br />などの有名作品があります。<br/>英語で検索してください。</h3>
+
+        <Link href="/detail/detail" as="/post/abc">
+          <a>First Post</a>
+        </Link>
+        <Post />
         <p>検索ワード：{search}</p>
         <input type="text" onKeyPress={handleChange} placeholder="検索キーワードを入力"/>
 
