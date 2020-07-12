@@ -1,49 +1,57 @@
+import React, { useEffect,useState } from 'react';
 import Head from 'next/head'
-import { useState } from 'react'
-import Arts from './../Component/arts'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 
-//Promise re失敗した場合
-function failedCallback(result) {
-  console.log("失敗")
-  return result
-}
+const Home = () => {
+  const router = useRouter();
+  const { myparams } = router.query;
+  const g = { myparams }
+  const [arts, setArts] = useState([])
 
-interface variables{
-  value: string,
-  search: string,
-  stateNum: number,
+  const r = async function d () {
+    const getMetAPI2 = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + g.myparams)
+    const gai = await getMetAPI2.json()
+    const imgs = await gai.primaryImageSmall
+    const aDN = await gai.artistDisplayName
+    const dm = await gai.department
+    const ttl = await gai.title
+    const md = await gai.medium
+    console.log(imgs)
 
-}
+    setArts([imgs,aDN,dm,ttl,md])
 
-export default function Home(props:variables) {
-  //検索キーワードの状態を保存
-  const [search,setSearch] = useState("Peter paul Rubens")
-  const [stateNum,setStateNum] = useState(20)
-
-  // console.log(search)
-
-  //検索キーワードを子コンポーネントに送る
-  const handleChange = (e) => {
-    if(e.key === 'Enter'){
-      setSearch(e.target.value)
-    }
   }
-
-  const incrementNum = () => {
-    setStateNum(stateNum + 18)
-  }
-
-  const Post = () => {
-    const router = useRouter()
-    const { pid } = router.query
+  console.log(r)
   
-    return <p>Post: {pid}</p>
+
+  function success (result) {
+    setArts(result)
   }
 
-  return (
+  function Dedd () {
+    return(
+      <>
+        <div><img src={arts.imgs} />
+          {arts}
+        </div>
+        {/* <div>
+          <h2>{ttl}</h2>
+          <p>{aDN}</p>
+          <p>{dm}</p>
+          <p>{md}</p>
+        </div> */}
+      </>
+    )
+  }
+
+  useEffect(() => {
+    r()
+  },[])
+
+  return(
     <div className="container">
+
       <Head>
         <title>Metro</title>
         <link rel="icon" href="/favicon.ico" />
@@ -54,15 +62,12 @@ export default function Home(props:variables) {
           メトロポリタン美術館
         </h1>
 
-        <h3 style={{padding:'0 20'}}>Vermeer(フェルメール)や<br />Peter paul rubens(ピーテル・パウル・ルーベンス)<br />などの有名作品があります。<br/>英語で検索してください。</h3>
+        <h3 style={{padding:'0 20'}}>{myparams}</h3>
 
-        <Post />
-        <p>検索ワード：{search}</p>
-        <input type="text" onKeyPress={handleChange} placeholder="検索キーワードを入力"/>
+        <div>
+          <Dedd />
+        </div>
 
-        <Arts ward={search} n={stateNum} />
-
-        <div><button onClick={incrementNum}>もっと見る</button></div>
       </main>
 
       <footer>
@@ -221,5 +226,9 @@ export default function Home(props:variables) {
         }
       `}</style>
     </div>
+
   )
+
 }
+
+export default Home;

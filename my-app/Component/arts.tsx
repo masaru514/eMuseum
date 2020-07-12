@@ -10,8 +10,6 @@ export default function Arts(props,{b}) {
     isLoading: true,
     isCount: true
   })
-  // console.log(check.isLoading)
-
   
   //loading
   const Loading = () =>{
@@ -50,8 +48,10 @@ export default function Arts(props,{b}) {
         const getArtInfo2 = await getArtInfo.primaryImageSmall
         const getArtInfo3 = await getArtInfo.artistDisplayName
         const getArtInfo4 = await getArtInfo.title
+        const getArtInfo5 = await getArtInfo.objectID
+
         //Promiseを返す
-        return {getArtInfo2 , getArtInfo3, getArtInfo4}
+        return {getArtInfo2 , getArtInfo3, getArtInfo4, getArtInfo5}
         })).then(successCallback,failureCallBack)
       // ↑map1の処理が終わった後は成功処理へ
     }
@@ -67,6 +67,7 @@ export default function Arts(props,{b}) {
     function successCallback(result) {
       setDisplay(result)
       setCheck({isLoading: false, isCount: true})
+      console.log(display)
     }
 
     //promise 失敗処理
@@ -79,15 +80,20 @@ export default function Arts(props,{b}) {
     }
   }
 
-  //RまでにgetMetAPIを取得しておきたい。
-
   function MetroComponent() {
     const lists = display.map((item,i) => {
+      const k = "/test/" + `${item.getArtInfo5}`;
       return(
         <li key={i} style={{margin: 10}}>
-          <img style={{width: 300,height: 400,objectFit: 'cover'}} src={item.getArtInfo2} alt={item.getArtInfo4} />
-          <p style={{width: 300,textAlign: 'center',wordBreak: 'break-word'}}>{item.getArtInfo4}</p>
-          <p style={{textAlign: 'center'}}>{item.getArtInfo3}</p>
+          <Link href={k}>
+            <a href={k}>
+              <div>
+                <img style={{width: 300,height: 400,objectFit: 'cover'}} src={item.getArtInfo2} alt={item.getArtInfo4} />
+                <p style={{width: 300,textAlign: 'center',wordBreak: 'break-word'}}>{item.getArtInfo4}</p>
+                <p style={{textAlign: 'center'}}>{item.getArtInfo3}</p>
+              </div>
+            </a>
+          </Link>
         </li>
       )
     })
