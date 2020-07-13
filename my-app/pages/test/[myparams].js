@@ -3,50 +3,44 @@ import Head from 'next/head'
 import Link from 'next/link'
 import {useRouter} from 'next/router'
 
-const Home = () => {
+
+
+const Home = (props) => {
   const router = useRouter();
+  const [arts, setArts] = useState([])
   const { myparams } = router.query;
   const g = { myparams }
-  const [arts, setArts] = useState([])
 
-  const r = async function d () {
-    const getMetAPI2 = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + g.myparams)
+  console.log(props)
+
+  async function d () {
+    //JSON読み込み
+    const getMetAPI2 = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + g)
     const gai = await getMetAPI2.json()
-    const imgs = await gai.primaryImageSmall
-    const aDN = await gai.artistDisplayName
-    const dm = await gai.department
-    const ttl = await gai.title
-    const md = await gai.medium
-    console.log(imgs)
-
-    setArts([imgs,aDN,dm,ttl,md])
-
+    setArts(gai)
+    return
   }
-  console.log(r)
-  
 
-  function success (result) {
-    setArts(result)
-  }
+
 
   function Dedd () {
-    return(
-      <>
-        <div><img src={arts.imgs} />
-          {arts}
-        </div>
-        {/* <div>
-          <h2>{ttl}</h2>
-          <p>{aDN}</p>
-          <p>{dm}</p>
-          <p>{md}</p>
-        </div> */}
-      </>
-    )
+      return(
+        <>
+          <div><img src={arts.primaryImageSmall} />
+          </div>
+          <div>
+            <h2>{arts.title}</h2>
+            <p>{arts.artistDisplayName}</p>
+            <p>{arts.department}</p>
+            <p>{arts.medium}</p>
+          </div>
+        </>
+      )
+
   }
 
   useEffect(() => {
-    r()
+    d()
   },[])
 
   return(
@@ -62,7 +56,7 @@ const Home = () => {
           メトロポリタン美術館
         </h1>
 
-        <h3 style={{padding:'0 20'}}>{myparams}</h3>
+        {/* <h3 style={{padding:'0 20'}}>{myparams}</h3> */}
 
         <div>
           <Dedd />

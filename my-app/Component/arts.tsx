@@ -85,7 +85,7 @@ export default function Arts(props,{b}) {
       const k = "/test/" + `${item.getArtInfo5}`;
       return(
         <li key={i} style={{margin: 10}}>
-          <Link href={k}>
+          <Link href={{pathname:k, query:{num: item.getArtInfo5}}} as={k}>
             <a href={k}>
               <div>
                 <img style={{width: 300,height: 400,objectFit: 'cover'}} src={item.getArtInfo2} alt={item.getArtInfo4} />
