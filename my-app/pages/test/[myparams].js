@@ -8,20 +8,16 @@ import {useRouter} from 'next/router'
 const Home = (props) => {
   const router = useRouter();
   const [arts, setArts] = useState([])
-  const { myparams } = router.query;
-  const g = { myparams }
-
-  console.log(props)
+  const [myparams, setMyparams] = useState()
+  const r = router.query.myparams;
 
   async function d () {
     //JSON読み込み
-    const getMetAPI2 = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + g)
+    const getMetAPI2 = await fetch("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + myparams)
     const gai = await getMetAPI2.json()
     setArts(gai)
     return
   }
-
-
 
   function Dedd () {
       return(
@@ -39,9 +35,22 @@ const Home = (props) => {
 
   }
 
+  // useEffect(() => {
+  //   d()
+  // },[])
+
   useEffect(() => {
-    d()
-  },[])
+    // // idがqueryで利用可能になったら処理される
+    if (router.asPath !== router.route) {
+      setMyparams(Number(router.query.myparams));
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if(myparams){
+      d()
+    }
+  },[myparams])
 
   return(
     <div className="container">
