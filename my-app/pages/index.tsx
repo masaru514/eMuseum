@@ -56,7 +56,7 @@ export default function Home(props:variables) {
 
         <h3 style={{padding:'0 20'}}>Vermeer(フェルメール)や<br />Peter paul rubens(ピーテル・パウル・ルーベンス)<br />などの有名作品があります。<br/>英語で検索してください。</h3>
 
-        <Post />
+        {/* <Post /> */}
         <p>検索ワード：{search}</p>
         <input type="text" onKeyPress={handleChange} placeholder="検索キーワードを入力"/>
 
