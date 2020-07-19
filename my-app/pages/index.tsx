@@ -35,13 +35,6 @@ export default function Home(props:variables) {
     setStateNum(stateNum + 18)
   }
 
-  const Post = () => {
-    const router = useRouter()
-    const { pid } = router.query
-  
-    return <p>Post: {pid}</p>
-  }
-
   return (
     <div className="container">
       <Head>
@@ -50,13 +43,20 @@ export default function Home(props:variables) {
       </Head>
 
       <main>
-        <h1 className="title">
-          メトロポリタン美術館
-        </h1>
+        <div className="title-mv">
+          <h1 className="title">
+            メトロポリタン美術館
+          </h1>
+          <div className="mv-box">
+            <img className="mv" src={require('./image.png')} alt=""/>
+            <img className="mv" src={require('./image.png')} alt=""/>
+          </div>
+        </div>
+
+
 
         <h3 style={{padding:'0 20'}}>Vermeer(フェルメール)や<br />Peter paul rubens(ピーテル・パウル・ルーベンス)<br />などの有名作品があります。<br/>英語で検索してください。</h3>
 
-        {/* <Post /> */}
         <p>検索ワード：{search}</p>
         <input type="text" onKeyPress={handleChange} placeholder="検索キーワードを入力"/>
 
@@ -85,8 +85,46 @@ export default function Home(props:variables) {
           align-items: center;
         }
 
+        @keyframes loop {
+          0% {
+            transform: translateX(100%);
+          }
+          to {
+            transform: translateX(-100%);
+          }
+        }
+        
+        @keyframes loop2 {
+          0% {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-200%);
+          }
+        }
+
+        .mv-box{
+          position: relative;
+          display: flex;
+          height: 400px;
+          width: 100vw;
+          overflow: hidden;
+        }
+
+        .mv-box img:first-child {
+          animation: loop 60s -30s linear infinite;
+        }
+        
+        .mv-box img:last-child {
+          animation: loop2 60s linear infinite;
+        }
+
+        .mv{
+          width: auto;
+          height: 100%;
+        }
+
         main {
-          padding: 5rem 0;
           flex: 1;
           display: flex;
           flex-direction: column;
@@ -129,10 +167,20 @@ export default function Home(props:variables) {
           text-decoration: underline;
         }
 
+        .title-mv{
+          position: relative;
+        }
+
         .title {
           margin: 0;
           line-height: 1.15;
-          font-size: 4rem;
+          font-size: 48px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          z-index: 100;
+          color: #fff;
         }
 
         .title,
