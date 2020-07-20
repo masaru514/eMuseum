@@ -86,7 +86,7 @@ export default function Arts(props,{b}) {
       return(
         <li key={i} style={{margin: 10}}>
           <Link href={{pathname:k, query:{num: item.getArtInfo5}}} as={k} prefetch>
-            <a  style={{textDecoration: 'none', color: '#333',}} href={k}>
+            <a style={{textDecoration: 'none', color: '#333',}} href={k}>
               <div>
                 <img style={{width: 300,height: 400,objectFit: 'cover'}} src={item.getArtInfo2} alt={item.getArtInfo4} />
                 <p style={{width: 300,textAlign: 'center',wordBreak: 'break-word'}}>{item.getArtInfo4}</p>

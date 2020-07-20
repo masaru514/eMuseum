@@ -21,23 +21,19 @@ const Home = (props) => {
 
   function Dedd () {
       return(
-        <>
-          <div><img src={arts.primaryImageSmall} />
+        <div className="box" style={{display: 'flex',alignItems: 'center',paddingTop: 40}}>
+          <div><img src={arts.primaryImageSmall} style={{width: 500}} />
           </div>
-          <div>
+          <div style={{width: 300,paddingLeft: 40}}>
             <h2>{arts.title}</h2>
             <p>{arts.artistDisplayName}</p>
             <p>{arts.department}</p>
             <p>{arts.medium}</p>
           </div>
-        </>
+        </div>
       )
 
   }
-
-  // useEffect(() => {
-  //   d()
-  // },[])
 
   useEffect(() => {
     // // idがqueryで利用可能になったら処理される
@@ -222,6 +218,10 @@ const Home = (props) => {
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
+        }
+
+        p{
+          margin: 0;
         }
 
         * {
